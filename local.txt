@@ -33,7 +33,6 @@ crediario varchar(50)
 
 select * from tbclientes;
 
-
 create table tbsubclientes(
 idsub MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
 nome text not null,
@@ -87,11 +86,7 @@ cliente text,
 subCliente text
 );
 
-alter table tbvenda add subCliente text;
 select * from tbvenda;
-select emicao,nome,quantidade,tipo,preco from tbvenda where cliente = "Vendas Sem Registro." order by emicao desc;
-
-select nome, quantidade, comissao, vendedor, tipo, emicao, porcentagem from tbvenda where identificador = "";
 
 create table  tbtotalvendas(
 id  MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
@@ -107,15 +102,6 @@ tipo text,
 identificador int,
 comunicarVenda int
 );
-
-select * from tbtotalvendas order by identificador desc;
-
-select cliente as Nome,
-dia_Pagamento as Data_Pagamento,
-forma_pagamento as Forma_de_Pagamento,
-status_pagamento as Status_Pagamento,
-venda as Valor_Ganho,	
-tipo as Tipo from tbtotalvendas;
 
 create table tbprodutos(
 idproduto MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
@@ -135,7 +121,6 @@ foto text
 
 select * from tbprodutos;
 
-
 create table tbcompra(
 idcompra MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
 nome_produto text,
@@ -145,7 +130,7 @@ quantidade_comprada int,
 fornecedor varchar(50),
 identificador text
 );
-alter table tbcompra add identificador text;
+
 select * from tbcompra;
 
 create table tbMaquininha(
@@ -174,24 +159,7 @@ comunicarGasto int,
 identificador int
 );
 
-select idgastos,identificador from tbgastos;
-alter table tbgastos add identificador int;
 select * from tbgastos;
-
-select * from(
-select distinct E.identificador,E.nome,E.data_pagamento,E.valor, 
-GROUP_CONCAT("",S.identificador,"\n") as VId,
-GROUP_CONCAT("",IFNULL(S.nome_produto,"nulo"),"\n")as VNome, 
-GROUP_CONCAT("Qtde: ",IFNULL(S.quantidade_comprada,"nulo"),"\n")as VQtde, 
-GROUP_CONCAT("Preço R$ ",IFNULL(S.valor,"nulo"),"\n")as VPreco, 
-GROUP_CONCAT("Cliente: ",IFNULL((S.fornecedor), "nulo"),"\n") as VCliente
-from tbgastos E JOIN tbcompra S 
-on  E.identificador = S.identificador
-where E.status_pagamento="Pago" 
-and E.data_pagamento  between $P{di} and $P{df} 
-GROUP BY S.identificador)
-id  order by 1 asc ;
-
 
 create table tbfornecedor(
 idfornecedor MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
@@ -218,9 +186,6 @@ tempoInativo text,
 pix text
 );
 
-select * from tbrelatorio where idRelatorio=1;
-insert into tbrelatorio(idRelatorio,nome_empresa,nome_proprietario,email_proprietario,descricao,numero,obs,imagem,taxaBoleto,tempoInativo,pix) values(1,"","","","","","","","","","");
-
 create table tbservicos(
 idservico MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
 servico text,
@@ -234,8 +199,7 @@ funcionario varchar(50),
 cliente text,
 subCliente text
 );
-alter table tbservicos add subCliente text;
-alter table tbservicos drop nome ;
+
 select * from tbservicos;
 
 create table tbFuncionarios(
@@ -262,73 +226,10 @@ idComanda MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
 nomeComanda varchar(80)
 );
 
-select distinct tbtotalvendas.identificador,tbtotalvendas.cliente,tbtotalvendas.dia_pagamento,tbtotalvendas.venda,tbvenda.identificador,tbvenda.nome,tbvenda.quantidade,tbvenda.preco,tbvenda.tipo from (tbtotalvendas,tbvenda) where (tbvenda.identificador=tbtotalvendas.identificador);
-
-select  distinct * from(
-select distinct E.identificador,E.cliente,E.dia_pagamento,E.venda,E.forma_pagamento,
-GROUP_CONCAT( distinctrow 
-"\n\nID:", S.idvenda," - - - ",
-"N°: ", S.identificador," - - - ",
-"Nome: ",IFNULL(S.nome,"nulo")," - - - ",
-"Qtde: ",IFNULL(S.quantidade,"nulo")," - - - ",
-"Preço R$ ",IFNULL(S.preco,"nulo")," - - - "
-"Tipo: ",IFNULL(S.tipo, "nulo")," - - - "
-"Cliente: ",IFNULL((S.cliente), "nulo"),"") as VId
-from  tbtotalvendas E LEFT JOIN  tbvenda S 
-on   E.identificador = S.identificador 
-where E.status_pagamento="Pago" 
-and E.dia_pagamento  between "2023-07-01" and "2023-07-30" 
-GROUP BY E.identificador
-UNION 
-select distinct E.identificador,E.cliente,E.dia_pagamento,E.venda,E.forma_pagamento, 
-GROUP_CONCAT(distinctrow "",S.idvenda,"\n","",
-S.identificador,"\n",
-"",IFNULL(S.nome,"nulo"),
-"\n","Qtde: ",IFNULL(S.quantidade,"nulo"),
-"\n","Preço R$ ",IFNULL(S.preco,"nulo"),"\n"
-"Tipo: ",IFNULL(S.tipo, "nulo"),"\n"
-"Cliente: ",IFNULL((S.cliente), "nulo"),"\n") as VId
-from   tbtotalvendas E RIGHT JOIN  tbvenda S  
-on  E.identificador = S.identificador
-where E.status_pagamento="Pago" 
-and E.dia_pagamento  between "2023-07-01" and "2023-07-30" 
-GROUP BY E.identificador)
-id  order by 1 asc ;
-
-select * from(
-select distinct E.identificador,E.cliente,E.dia_pagamento,E.venda, 
-GROUP_CONCAT("",S.identificador,"\n") as VId,
-GROUP_CONCAT("",IFNULL(S.nome,"nulo"),"\n")as VNome, 
-GROUP_CONCAT("Qtde: ",IFNULL(S.quantidade,"nulo"),"\n")as VQtde, 
-GROUP_CONCAT("Preço R$ ",IFNULL(S.preco,"nulo"),"\n")as VPreco, 
-GROUP_CONCAT("Tipo: ",IFNULL(S.tipo, "nulo"),"\n")as VTipo, 
-GROUP_CONCAT("Cliente: ",IFNULL((S.cliente), "nulo"),"\n") as VCliente
-from tbtotalvendas E JOIN tbvenda S 
-on  .identificador = S.identificador
-where E.status_pagamento="Pago" 
-and E.dia_pagamento  between $P{di} and $P{df} 
-GROUP BY S.identificador)
-id  order by 1 asc ;
-
-select * from(
-select E.id,E.cliente,E.venda,E.tipo,S.idgastos,S.nome,S.valor,S.tipo as tipoS 
-from tbtotalvendas E left join tbgastos S
-on comunicarVenda = comunicarGasto and S.status_pagamento="Pago"  
-and data_pagamento between $P{di} and $P{df}
-where E.status_pagamento="Pago" 
-and dia between $P{di} and $P{df} 
-union select E.id,E.cliente,E.venda,E.tipo,S.idgastos,S.nome,S.valor,S.tipo as tipoS 
-from tbtotalvendas E right outer join tbgastos S
-on S.comunicarGasto = E.comunicarVenda 
-and E.status_pagamento='Pago' 
-and dia between $P{di} and $P{df}
-where S.status_pagamento="Pago" 
-and data_pagamento between $P{di} and $P{df})
- idgastos  order by 1 asc;
 
 insert into tbusuarios(iduser,usuario,cargo_usuario,telefone,login,senha,perfil,comissao) values(1,'Administrador','Administrador','000000000000000','admin','admin123','Administrador','0%');
 insert into tbprodutos(produto,valor_compra,valor_venda,fornecedor,estoque,quantidade) values('teste','20.00','100.00','Selecione','Com controle de estoque.','1');
-
+insert into tbrelatorio(idRelatorio,nome_empresa,nome_proprietario,email_proprietario,descricao,numero,obs,imagem,taxaBoleto,tempoInativo,pix) values(1,"","","","","","","","","","");
 insert into tbclientes(nomecli,quantidade_comprada,valor_gasto,ticket_medio,crediario,endcli) values('Vendas Sem Registro.','0.00','0.00','0.00','Habilitado','');
 insert into tbVale(idVale) values(1);
 
