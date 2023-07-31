@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Agendamentos" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="0" bottomMargin="0" uuid="3ae8a023-1b10-424d-a606-eef6a752ff31">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="nome" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="descricao" class="java.lang.String"/>
+	<parameter name="numero" class="java.lang.String"/>
+	<parameter name="imagem" class="java.lang.String"/>
+	<parameter name="obs" class="java.lang.String"/>
+	<parameter name="Bandeira" class="java.lang.String"/>
+	<parameter name="Background" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select servico as Serviço, valor as Valor, date(data_agendada) as Data, funcionario as Funcionario, tipo as Tipo,cliente as Cliente from tbservicos where
+tipo='Agendada' or tipo='Pendente']]>
+	</queryString>
+	<field name="Serviço" class="java.lang.String"/>
+	<field name="Valor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Data" class="java.sql.Date"/>
+	<field name="Funcionario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Tipo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="595" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image scaleImage="FillFrame">
+				<reportElement x="-11" y="0" width="842" height="595" uuid="9984fbd3-0d93-4aca-9ded-0b7753beb1fe"/>
+				<imageExpression><![CDATA[$P{Background}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="230" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Top">
+				<reportElement positionType="Float" x="-8" y="0" width="842" height="108" uuid="6d158fcc-8060-492b-9318-024d5d8f0dfb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{Bandeira}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="Float" x="-11" y="0" width="843" height="108" uuid="94f9105f-972b-42dc-a9bf-acc9c6960b19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Agendamentos]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="110" y="150" width="712" height="70" uuid="2a75f6c0-6371-4822-be6a-81c4289ab2ba"/>
+				<textElement>
+					<font fontName="Dialog" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="110" y="120" width="712" height="30" uuid="effd8d14-d4a0-4535-afa4-3a17f1a439be">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Dialog" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement positionType="Float" x="0" y="120" width="100" height="100" uuid="ab81915c-11dc-49e3-afae-46e43dd5fcc5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="90" height="20" uuid="eacd1d35-892c-49b2-b2bb-6ad56d8be980"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="100" y="0" width="169" height="20" uuid="b7e48a99-ca43-4336-a9d0-288c9f621a65"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serviço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="449" y="0" width="160" height="20" uuid="2950afb0-a31b-4fad-882b-2ed9bfd3eb46"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Funcionario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="620" y="0" width="100" height="20" uuid="31eb52ab-db81-455c-a693-b0dc1bdc7d6a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor(R$)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="730" y="0" width="92" height="20" uuid="0759b8e5-d9fe-42f2-a17b-4ac592e3c045"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="0" width="159" height="20" uuid="17ee2762-1319-4061-8dc7-ca85a1356278"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="-11" y="0" width="842" height="1" uuid="33d55ed8-f1ee-4940-bc2b-50aec4b75447"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="-10" y="19" width="842" height="1" uuid="309a3e84-3723-40df-b073-4a69fce91b6f"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="0" width="90" height="19" uuid="64b2f8a2-39af-48ba-b05c-c925e803ea16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Data}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="100" y="0" width="169" height="19" uuid="9bd3742e-af65-403d-808d-8465c7e12e21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Serviço}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="620" y="0" width="99" height="19" uuid="09aa8e06-577c-4b53-b9a5-3740a11cd004"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["R\$ "+$F{Valor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="730" y="0" width="91" height="19" uuid="20e6c09d-3c44-46e9-b2c6-bc597c301ea0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tipo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="449" y="0" width="160" height="19" uuid="ce7d598e-e072-4be4-a110-4ebb5540ba06"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Funcionario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="280" y="0" width="159" height="19" uuid="eeca9cb9-e09c-46fb-8349-2c55a5f0b8d3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="-10" y="19" width="842" height="1" uuid="e5e21f56-7708-40eb-b51b-8386eb4fa520"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement positionType="Float" x="0" y="0" width="410" height="30" uuid="c6594140-2b2c-48b7-8f7e-a52c85d68207"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="-10" y="0" width="840" height="1" uuid="8ba2781b-9aba-45bf-8717-3bac258a67ee"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement positionType="Float" x="456" y="0" width="365" height="30" uuid="bb4996fd-7d8e-45ad-9500-9a8e7d8190ed"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina: " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

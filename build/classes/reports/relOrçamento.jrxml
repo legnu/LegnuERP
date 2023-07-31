@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relOrçamento" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="0" bottomMargin="0" uuid="718d3026-3443-426f-930e-1f71522edbba">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="nome" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="descricao" class="java.lang.String"/>
+	<parameter name="numero" class="java.lang.String"/>
+	<parameter name="imagem" class="java.lang.String"/>
+	<parameter name="obs" class="java.lang.String"/>
+	<parameter name="Bandeira" class="java.lang.String"/>
+	<parameter name="Background" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select date(data_os), equipamento as Equipamento, defeito as Defeito, servico as Servico, valor as Valor, funcionario as Funcionario from tbos where tipo='Orçamento']]>
+	</queryString>
+	<field name="date(data_os)" class="java.sql.Date"/>
+	<field name="Equipamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Defeito" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Servico" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Valor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Funcionario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="595" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image scaleImage="FillFrame">
+				<reportElement x="-12" y="0" width="843" height="595" uuid="ff95c16f-0d88-4aa9-b79f-f1b42dd9239b"/>
+				<imageExpression><![CDATA[$P{Background}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="233" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Top">
+				<reportElement x="-8" y="0" width="840" height="108" uuid="5d5b158a-3fc7-4595-be3b-72a5333a6b1d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{Bandeira}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-8" y="0" width="838" height="108" uuid="d4e37c33-73a4-43b7-82ff-93f922275273"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatorio Orçamento]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="110" y="150" width="710" height="70" uuid="0965e92a-8024-4e22-8664-e72e4605687f"/>
+				<textElement>
+					<font fontName="Dialog" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="120" width="710" height="30" uuid="110791b6-2847-4568-a3e8-2e6164818002">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Dialog" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="120" width="100" height="100" uuid="7b7a0ad9-405f-4a2d-a359-b36bb6794970">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<line>
+				<reportElement positionType="Float" x="0" y="18" width="820" height="1" uuid="1cd48c27-29ab-4120-849a-e5a119484d13"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="80" y="0" width="160" height="18" uuid="a4b2c28c-8292-42b4-83f0-2afb7cbab301"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="640" y="0" width="90" height="18" uuid="0efde804-c916-4efb-b76d-5f59dadd6ab0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Técnico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="250" y="0" width="172" height="18" uuid="b6739951-cc47-48d4-b2f4-8d6660723bb7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Defeito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="430" y="0" width="201" height="18" uuid="415bc942-6525-4c2a-80dd-0ecf358af3bd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serviço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="72" height="18" uuid="b4007a8e-45e6-406a-85a1-ebb1bc4ace69"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emissão]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="0" y="0" width="820" height="1" uuid="335a29c5-dcac-4f35-b725-77238028f578"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="740" y="0" width="80" height="18" uuid="8e647e5a-6164-4153-910d-ed876e195755"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor(R$)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="640" y="0" width="90" height="20" uuid="c1f1efeb-d363-422f-bb23-555371a326e6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Funcionario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="0" width="72" height="20" uuid="a2cc1580-3727-45e4-add9-6cb131992fe3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date(data_os)}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="80" y="0" width="160" height="20" uuid="d5ab0495-e0c2-4004-a1f5-2d47b3eb20e8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Equipamento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="740" y="0" width="80" height="20" uuid="2396339d-4972-4ec1-9329-3d35bcfdb6e7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["R\$" + $F{Valor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="250" y="0" width="172" height="20" uuid="3b63010e-5451-440e-8632-3ff502982f7a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Defeito}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="430" y="0" width="201" height="20" uuid="fbc56ed2-51fa-4747-a065-fa389575a920"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Servico}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="0" y="20" width="820" height="1" uuid="fd374c03-a03f-487d-b164-4a94d084e12b"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement positionType="Float" x="0" y="0" width="275" height="30" uuid="993e97b4-b4d3-4b43-9db1-097a96a0c665"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="0" y="-1" width="819" height="1" uuid="0e67bd12-a953-4ebb-a747-a784ddb0e4e8"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement positionType="Float" x="540" y="0" width="280" height="30" uuid="f1aeed49-5150-4633-af04-5f852999f2f4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina: " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
