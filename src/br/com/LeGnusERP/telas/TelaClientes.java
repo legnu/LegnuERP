@@ -147,7 +147,7 @@ public class TelaClientes extends javax.swing.JFrame {
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
-            tbAuxilio.setModel(DbUtils.resultSetToTableModel(rs));            
+            tbAuxilio.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
 
@@ -157,27 +157,66 @@ public class TelaClientes extends javax.swing.JFrame {
 
     public void ValidarCliente() {
         try {
-            
 
             for (int i = 0; i < tbAuxilio.getRowCount(); i++) {
                 ultimaCompra = tbAuxilio.getModel().getValueAt(i, 3).toString();
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 Date d = df.parse(ultimaCompra);
-                
+
                 java.sql.Date dSql = new java.sql.Date(d.getTime());
                 df.format(dSql);
-                
+
                 String dia = new SimpleDateFormat("dd").format(d);
                 String mes = new SimpleDateFormat("MM").format(d);
                 String ano = new SimpleDateFormat("yyyy").format(d);
                 dia = String.valueOf(Integer.parseInt(dia) + Integer.parseInt(tempoInativo));
 
+                int x;
+                
                 if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
-                    mes = String.valueOf(Integer.parseInt(mes) + 1);
-                    dia = String.valueOf(Integer.parseInt(dia) - 28);
+                    x = 28;
+                    while (Integer.parseInt(dia) >= x) {
+                        if (mes.length() == 1) {
+                            mes = "0" + mes;
+                        }
+                        if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
+                            mes = String.valueOf(Integer.parseInt(mes) + 1);
+                            dia = String.valueOf(Integer.parseInt(dia) - 28);
+                            x = 30;
+                        } else if (Integer.parseInt(dia) >= 30) {
+                            if (mes.equals("01") == true) {
+                                mes = String.valueOf(Integer.parseInt(mes) + 1);
+                                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                                x = 28;
+                            } else {
+                                mes = String.valueOf(Integer.parseInt(mes) + 1);
+                                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                                x = 30;
+                            }
+                        }
+                    }
                 } else if (Integer.parseInt(dia) >= 30) {
-                    mes = String.valueOf(Integer.parseInt(mes) + 1);
-                    dia = String.valueOf(Integer.parseInt(dia) - 30);
+                    x = 30;
+                    while (Integer.parseInt(dia) >= x) {
+                        if (mes.length() == 1) {
+                            mes = "0" + mes;
+                        }
+                        if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
+                            mes = String.valueOf(Integer.parseInt(mes) + 1);
+                            dia = String.valueOf(Integer.parseInt(dia) - 28);
+                            x = 30;
+                        } else if (Integer.parseInt(dia) >= 30) {
+                            if (mes.equals("01") == true) {
+                                mes = String.valueOf(Integer.parseInt(mes) + 1);
+                                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                                x = 28;
+                            } else {
+                                mes = String.valueOf(Integer.parseInt(mes) + 1);
+                                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                                x = 30;
+                            }
+                        }
+                    }
                 }
 
                 if (Integer.parseInt(mes) > 12) {

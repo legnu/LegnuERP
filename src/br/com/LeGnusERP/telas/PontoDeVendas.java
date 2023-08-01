@@ -1311,12 +1311,52 @@ public class PontoDeVendas extends javax.swing.JFrame {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             dia = String.valueOf(Integer.parseInt(dia) + Integer.parseInt(compensacaoDebito));
 
+            int x;
+
             if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
-                mes = String.valueOf(Integer.parseInt(mes) + 1);
-                dia = String.valueOf(Integer.parseInt(dia) - 28);
+                x = 28;
+                while (Integer.parseInt(dia) >= x) {
+                    if (mes.length() == 1) {
+                        mes = "0" + mes;
+                    }
+                    if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
+                        mes = String.valueOf(Integer.parseInt(mes) + 1);
+                        dia = String.valueOf(Integer.parseInt(dia) - 28);
+                        x = 30;
+                    } else if (Integer.parseInt(dia) >= 30) {
+                        if (mes.equals("01") == true) {
+                            mes = String.valueOf(Integer.parseInt(mes) + 1);
+                            dia = String.valueOf(Integer.parseInt(dia) - 30);
+                            x = 28;
+                        } else {
+                            mes = String.valueOf(Integer.parseInt(mes) + 1);
+                            dia = String.valueOf(Integer.parseInt(dia) - 30);
+                            x = 30;
+                        }
+                    }
+                }
             } else if (Integer.parseInt(dia) >= 30) {
-                mes = String.valueOf(Integer.parseInt(mes) + 1);
-                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                x = 30;
+                while (Integer.parseInt(dia) >= x) {
+                    if (mes.length() == 1) {
+                        mes = "0" + mes;
+                    }
+                    if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
+                        mes = String.valueOf(Integer.parseInt(mes) + 1);
+                        dia = String.valueOf(Integer.parseInt(dia) - 28);
+                        x = 30;
+                    } else if (Integer.parseInt(dia) >= 30) {
+                        if (mes.equals("01") == true) {
+                            mes = String.valueOf(Integer.parseInt(mes) + 1);
+                            dia = String.valueOf(Integer.parseInt(dia) - 30);
+                            x = 28;
+                        } else {
+                            mes = String.valueOf(Integer.parseInt(mes) + 1);
+                            dia = String.valueOf(Integer.parseInt(dia) - 30);
+                            x = 30;
+                        }
+                    }
+                }
             }
 
             if (Integer.parseInt(mes) > 12) {
@@ -1394,12 +1434,52 @@ public class PontoDeVendas extends javax.swing.JFrame {
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 dia = String.valueOf(Integer.parseInt(dia) + Integer.parseInt(compensacaoCredito));
 
+                int x;
+
                 if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
-                    mes = String.valueOf(Integer.parseInt(mes) + 1);
-                    dia = String.valueOf(Integer.parseInt(dia) - 28);
+                    x = 28;
+                    while (Integer.parseInt(dia) >= x) {
+                        if (mes.length() == 1) {
+                            mes = "0" + mes;
+                        }
+                        if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
+                            mes = String.valueOf(Integer.parseInt(mes) + 1);
+                            dia = String.valueOf(Integer.parseInt(dia) - 28);
+                            x = 30;
+                        } else if (Integer.parseInt(dia) >= 30) {
+                            if (mes.equals("01") == true) {
+                                mes = String.valueOf(Integer.parseInt(mes) + 1);
+                                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                                x = 28;
+                            } else {
+                                mes = String.valueOf(Integer.parseInt(mes) + 1);
+                                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                                x = 30;
+                            }
+                        }
+                    }
                 } else if (Integer.parseInt(dia) >= 30) {
-                    mes = String.valueOf(Integer.parseInt(mes) + 1);
-                    dia = String.valueOf(Integer.parseInt(dia) - 30);
+                    x = 30;
+                    while (Integer.parseInt(dia) >= x) {
+                        if (mes.length() == 1) {
+                            mes = "0" + mes;
+                        }
+                        if (mes.equals("02") == true && Integer.parseInt(dia) >= 28) {
+                            mes = String.valueOf(Integer.parseInt(mes) + 1);
+                            dia = String.valueOf(Integer.parseInt(dia) - 28);
+                            x = 30;
+                        } else if (Integer.parseInt(dia) >= 30) {
+                            if (mes.equals("01") == true) {
+                                mes = String.valueOf(Integer.parseInt(mes) + 1);
+                                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                                x = 28;
+                            } else {
+                                mes = String.valueOf(Integer.parseInt(mes) + 1);
+                                dia = String.valueOf(Integer.parseInt(dia) - 30);
+                                x = 30;
+                            }
+                        }
+                    }
                 }
 
                 if (Integer.parseInt(mes) > 12) {

@@ -228,12 +228,11 @@ nomeComanda varchar(80)
 
 
 insert into tbusuarios(iduser,usuario,cargo_usuario,telefone,login,senha,perfil,comissao) values(1,'Administrador','Administrador','000000000000000','admin','admin123','Administrador','0%');
-insert into tbprodutos(produto,valor_compra,valor_venda,fornecedor,estoque,quantidade) values('teste','20.00','100.00','Selecione','Com controle de estoque.','1');
 insert into tbrelatorio(idRelatorio,nome_empresa,nome_proprietario,email_proprietario,descricao,numero,obs,imagem,taxaBoleto,tempoInativo,pix) values(1,"","","","","","","","","","");
 insert into tbclientes(nomecli,quantidade_comprada,valor_gasto,ticket_medio,crediario,endcli) values('Vendas Sem Registro.','0.00','0.00','0.00','Habilitado','');
 insert into tbVale(idVale) values(1);
 
-select * from tbvale;
+select * from tbVale;
 select * from tbcompra;
 select * from tbprodutos;
 select * from tbrelatorio;
