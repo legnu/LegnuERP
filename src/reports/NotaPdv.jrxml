@@ -192,7 +192,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Forma de Pagamento: " + $P{formaPagamento} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Forma de Pagamento: " + $P{formaPagamento}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="Float" x="-10" y="18" width="226" height="1" uuid="4440dbc4-2294-4490-9c6a-f977e7d89fde"/>

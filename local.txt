@@ -14,6 +14,8 @@ salario varchar(30),
 valorVendidoUsuario varchar(80)
 );
 
+
+
 create table tbclientes(
 idcli MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
 nomecli text not null,
@@ -102,6 +104,8 @@ tipo text,
 identificador int,
 comunicarVenda int
 );
+
+select * from tbtotalvendas;
 
 create table tbprodutos(
 idproduto MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
@@ -215,6 +219,8 @@ data_pagamento date,
 valorVendido varchar(80)
 );
 
+select * from tbfuncionarios;
+
 create table tbVale(
 idVale MEDIUMINT NOT NULL AUTO_INCREMENT Primary key,
 senha varchar(80),
@@ -230,6 +236,9 @@ nomeComanda varchar(80)
 insert into tbusuarios(iduser,usuario,cargo_usuario,telefone,login,senha,perfil,comissao) values(1,'Administrador','Administrador','000000000000000','admin','admin123','Administrador','0%');
 insert into tbrelatorio(idRelatorio,nome_empresa,nome_proprietario,email_proprietario,descricao,numero,obs,imagem,taxaBoleto,tempoInativo,pix) values(1,"","","","","","","","","","");
 insert into tbclientes(nomecli,quantidade_comprada,valor_gasto,ticket_medio,crediario,endcli) values('Vendas Sem Registro.','0.00','0.00','0.00','Habilitado','');
+insert into tbtotalvendas(id,dia,hora,venda,forma_pagamento,status_pagamento,dia_Pagamento,idcliente,cliente,tipo,identificador)values("1",curdate(),curtime(),"0.01","Dinheiro","Pago",curdate(),"1","Vendas sem Registro.","Venda","1");
+insert into tbvenda(idvenda,nome,preco,quantidade,identificador,comissao,vendedor,comanda_nota,tipo,emicao,porcentagem,cliente)values("1","Venda Teste","0.01","1","1","Administrador","Administrador","","Produto",current_timestamp(),"0","Vendas Sem Registro");
+insert into tbgastos(idgastos,valor,data_emissao,data_pagamento,nome,forma_pagamento,status_pagamento,tipo,comunicarGasto,identificador)values("1","0.01",curdate(),curdate(),"Gasto Teste","A Vista (Dinhero)","Pago","Compra","1","1");
 insert into tbVale(idVale) values(1);
 
 select * from tbVale;

@@ -45,6 +45,7 @@ import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JRViewer;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -417,7 +418,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
                 limpar();
 
             } else if (Integer.parseInt(txtEstoque.getText()) <= 0 && tipo.equals("Produto") && txtTipo.getText().equals("Com controle de estoque.") == true) {
-                JOptionPane.showMessageDialog(null, "Sem estoque de " + txtNome.getText() + ".");
+//                JOptionPane.showMessageDialog(null, "Sem estoque de " + txtNome.getText() + ".");
                 limpar();
 
             } else if (Integer.parseInt(txtQuantidade.getText()) > Integer.parseInt(txtEstoque.getText()) && txtTipo.getText().equals("Com controle de estoque.") == true) {
@@ -430,19 +431,8 @@ public class PontoDeVendas extends javax.swing.JFrame {
                 pst = conexao.prepareStatement(sqt);
 
                 pst.setString(1, txtNome.getText());
-
-                if (tipo.equals("Produto") == true) {
-
-                    pst.setString(2, new DecimalFormat("#,##0.00").format(Float.parseFloat(String.valueOf(Double.parseDouble(txtPreco.getText()) * Integer.parseInt(txtQuantidade.getText())))).replace(",", "."));
-                } else if (tipo.equals("OS") == true) {
-
-                    pst.setString(2, new DecimalFormat("#,##0.00").format(Float.parseFloat(String.valueOf(Double.parseDouble(txtPreco.getText())))).replace(",", "."));
-                } else if (tipo.equals("Serviço") == true) {
-
-                    pst.setString(2, new DecimalFormat("#,##0.00").format(Float.parseFloat(String.valueOf(Double.parseDouble(txtPreco.getText())))).replace(",", "."));
-                }
-
-                pst.setString(3, txtQuantidade.getText());
+                pst.setString(2, new DecimalFormat("#,##0.00").format(Float.parseFloat(String.valueOf(Double.parseDouble(txtPreco.getText()) * Integer.parseInt(txtQuantidade.getText())))).replace(",", "."));
+                pst.setString(3, String.valueOf(Integer.parseInt(txtQuantidade.getText())));
                 pst.setString(4, tipo);
                 if (tipo.equals("Produto") == true) {
                     pst.setString(5, lblUsuarioPDV.getText());
@@ -569,6 +559,9 @@ public class PontoDeVendas extends javax.swing.JFrame {
         } catch (java.lang.NumberFormatException e) {
             if (txtQuantidade.getText().isEmpty() == true) {
                 JOptionPane.showMessageDialog(null, "Quantidade não pode ser nula.");
+                limpar();
+            } else if ((txtQuantidade.getText().equals(null) == true)) {
+                JOptionPane.showMessageDialog(null, "Quantidade está nula.");
                 limpar();
             } else {
                 JOptionPane.showMessageDialog(null, "Quantidade deve ser um numero Inteiro.");
@@ -807,6 +800,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
                 JRViewer painelRelatorio = new JRViewer(jprint);
                 tela.getContentPane().add(painelRelatorio);
                 tela.setVisible(true);
+
             } catch (java.lang.NullPointerException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Adicione uma imagem no relatorio");
@@ -834,7 +828,9 @@ public class PontoDeVendas extends javax.swing.JFrame {
                 identificador = "1";
             }
 
-        } catch (Exception e) {
+        }  catch (java.lang.ArrayIndexOutOfBoundsException e) {
+            identificadorGasto = "1";
+        }catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             limpar();
         }
@@ -852,7 +848,9 @@ public class PontoDeVendas extends javax.swing.JFrame {
             } else {
                 identificadorGasto = "1";
             }
-        } catch (Exception e) {
+        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+            identificadorGasto = "1";
+        }catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             limpar();
 
@@ -1048,6 +1046,8 @@ public class PontoDeVendas extends javax.swing.JFrame {
             pst.setString(1, cbComanda.getSelectedItem().toString());
             rs = pst.executeQuery();
             tbComissao.setModel(DbUtils.resultSetToTableModel(rs));
+            
+            
 
             for (int i = 0; i < tbComissao.getRowCount(); i++) {
                 String tipoVenda = tbComissao.getModel().getValueAt(i, 1).toString();
@@ -1073,7 +1073,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
 
                         String sql = "insert into tbgastos(nome, data_pagamento, status_pagamento, valor, tipo)values(?,?,?,?,?)";
                         pst = conexao.prepareStatement(sql);
-                        pst.setString(1, "Comiçâo de " + lblUsuarioPDV.getText());
+                        pst.setString(1, "Comiçâo do(a) " + lblUsuarioPDV.getText());
                         pst.setDate(2, dSql);
                         pst.setString(3, "Pendente");
                         pst.setString(4, valorComissao);
@@ -1103,7 +1103,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
 
                         String sql = "insert into tbgastos(nome, data_pagamento, status_pagamento, valor, tipo)values(?,?,?,?,?)";
                         pst = conexao.prepareStatement(sql);
-                        pst.setString(1, "Comiçâo de " + tbComissao.getModel().getValueAt(i, 2).toString());
+                        pst.setString(1, "Comiçâo do(a) " + tbComissao.getModel().getValueAt(i, 2).toString());
                         pst.setDate(2, dSql);
                         pst.setString(3, "Pendente");
                         pst.setString(4, valorComissao);
@@ -1259,14 +1259,16 @@ public class PontoDeVendas extends javax.swing.JFrame {
             tela.getContentPane().add(foto);
             tela.setVisible(true);
 
-            certo = JOptionPane.showConfirmDialog(null, "O Pix foi realizado com sucesso?", "Atenção", JOptionPane.YES_NO_OPTION);
+            
 
             Date d = new Date();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
             java.sql.Date dSql = new java.sql.Date(d.getTime());
             df.format(dSql);
-
+            
+            certo = JOptionPane.showConfirmDialog(null, "O Pix foi realizado com sucesso?", "Atenção", JOptionPane.YES_NO_OPTION);
+            
             if ((certo == JOptionPane.YES_OPTION) == true) {
 
                 valorTotal = String.valueOf(Float.parseFloat(valorTotal) + Float.parseFloat(pagamento));
@@ -1282,6 +1284,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
                 pst.setString(8, "Venda");
                 pst.setString(9, identificador);
                 pst.setDate(10, dSql);
+                pst.executeUpdate();
             } else {
                 JOptionPane.showMessageDialog(null, "Invalido");
                 if ((pagamentoD.equals("Unico")) == true) {
@@ -2293,22 +2296,18 @@ public class PontoDeVendas extends javax.swing.JFrame {
 
                 taDescricao.setText("Produto: " + txtNome.getText() + "\nObservação: " + tbListaDeInformaçoes.getModel().getValueAt(setar, 3).toString() + "\n\nPreço: R$ " + String.valueOf(new DecimalFormat("#,##0.00").format(Float.parseFloat(txtPreco.getText()))).replace(",", "."));
 
-                String sql = "select estoque, foto FROM tbprodutos where idproduto=?";
+                String sql = "select estoque,quantidade, foto FROM tbprodutos where idproduto=?";
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, tbListaDeInformaçoes.getModel().getValueAt(setar, 0).toString());
                 rs = pst.executeQuery();
                 tbSetar.setModel(DbUtils.resultSetToTableModel(rs));
+                
                 txtTipo.setText(tbSetar.getModel().getValueAt(0, 0).toString());
+                txtEstoque.setText(tbSetar.getModel().getValueAt(0, 1).toString());                
                 if (tbSetar.getModel().getValueAt(0, 1) != null) {
-                    txtFoto.setText(tbSetar.getModel().getValueAt(0, 1).toString());
-                } else if (txtQuantidade.getText().equals("0") == false) {
-                    String sqo = "select quantidade FROM tbprodutos where idproduto=?";
-                    pst = conexao.prepareStatement(sqo);
-                    pst.setString(1, tbListaDeInformaçoes.getModel().getValueAt(setar, 0).toString());
-                    rs = pst.executeQuery();
-                    tbSetar.setModel(DbUtils.resultSetToTableModel(rs));
-                    txtEstoque.setText(tbSetar.getModel().getValueAt(0, 0).toString());
+                    txtFoto.setText(tbSetar.getModel().getValueAt(0, 2).toString());
                 }
+
                 btnMostrarFoto.setEnabled(true);
 
             } else if (tipo.equals("Serviço") == true) {

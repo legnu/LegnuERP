@@ -690,6 +690,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menPontoDeVendas = new javax.swing.JMenu();
         MenAju = new javax.swing.JMenu();
         MenAjuSob = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
         MenOpc = new javax.swing.JMenu();
         menRelatorioDadosRelatorio = new javax.swing.JMenuItem();
         MenOpcSai = new javax.swing.JMenuItem();
@@ -1358,6 +1359,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         Menu.add(MenAju);
 
+        jMenu3.setText("Atualizar");
+        jMenu3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
+        Menu.add(jMenu3);
+
         MenOpc.setText("Opções");
         MenOpc.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
@@ -1815,6 +1825,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CMaquininha.setVisible(true);
     }//GEN-LAST:event_menCadFuncionario1ActionPerformed
 
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        // TODO add your handling code here:
+        Instanciar();
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1866,6 +1881,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

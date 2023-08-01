@@ -58,6 +58,9 @@ public class telaGastos extends javax.swing.JFrame {
     String tipo1,tipo2,tipo3,tipo4,data1,data2;
     int estado = 0;
     double x;
+    
+    String identificadorGasto;
+    
     java.sql.Date bInicial;
     java.sql.Date bFinal;
 
@@ -206,15 +209,37 @@ public class telaGastos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
+    private void identificadorGasto() {
+        try {
+            String squ = "select identificador from tbgastos order by identificador desc";
+            pst = conexao.prepareStatement(squ);
+            rs = pst.executeQuery();
+            tbAuxilio.setModel(DbUtils.resultSetToTableModel(rs));
+
+            if (tbAuxilio.getModel().getValueAt(0, 0) != null) {
+                identificadorGasto = String.valueOf(Integer.parseInt(tbAuxilio.getModel().getValueAt(0, 0).toString()) + 1);
+            } else {
+                identificadorGasto = "1";
+            }
+        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+            identificadorGasto = "1";
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            limpar();
+
+        }
+    }
 
     private void adicionar() {
 
         try {
+            identificadorGasto();
             Date d = new Date();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             java.sql.Date dSql = new java.sql.Date(d.getTime());
             df.format(dSql);
-            sql = "insert into tbgastos(nome, data_pagamento, status_pagamento, valor, tipo)values(?,?,?,?,?)";
+            sql = "insert into tbgastos(nome, data_pagamento, status_pagamento, valor, tipo, identificador)values(?,?,?,?,?,?)";
             pst = conexao.prepareStatement(sql);
 
             if (txtDescricao.getText().isEmpty()) {
@@ -227,6 +252,7 @@ public class telaGastos extends javax.swing.JFrame {
             pst.setString(3, "Pago");
             pst.setString(4, new DecimalFormat("#,##0.00").format(Double.parseDouble(txtSangria.getText().replace(",", "."))).replace(",", "."));
             pst.setString(5, "Sangria");
+            pst.setString(6, identificadorGasto);
 
             //Validação dos Campos Obrigatorios
             if ((txtSangria.getText().isEmpty())) {

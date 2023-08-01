@@ -33,7 +33,7 @@ tipo as Tipo
  from tbtotalvendas
  where  dia_Pagamento
  between  CURDATE()
-and  CURDATE() ]]>
+and  CURDATE() and tipo != "Montagem"]]>
 	</queryString>
 	<field name="Nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Nome"/>
