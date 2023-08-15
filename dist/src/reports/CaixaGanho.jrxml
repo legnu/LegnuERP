@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GastoDoDia" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="a5e09ede-8a20-4ed1-9954-30d4db116309">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql_Legnus"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#7CFC00">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#F2FFE6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#00FFA9">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#E6FFF6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="di" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="df" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="entrada" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Saida" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numero" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nome" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="descricao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="empresa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="email" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagem" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lucro" class="java.lang.String"/>
+	<parameter name="obs" class="java.lang.String"/>
+	<parameter name="Bandeira" class="java.lang.String"/>
+	<parameter name="Background" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select  distinct * from(
+select distinct E.identificador, 
+GROUP_CONCAT( distinctrow E.cliente) as cliente,
+GROUP_CONCAT( distinctrow E.dia_pagamento)as dia_pagamento,
+GROUP_CONCAT( distinctrow E.venda)as venda,
+GROUP_CONCAT( distinctrow E.forma_pagamento)as forma_pagamento,
+GROUP_CONCAT( distinctrow 
+"\n\nID:", S.idvenda," - - - ",
+"N°: ", S.identificador," - - - ",
+"Nome: ",IFNULL(S.nome,"nulo")," - - - ",
+"Qtde: ",IFNULL(S.quantidade,"nulo")," - - - ",
+"Preço R$ ",IFNULL(S.preco,"nulo")," - - - "
+"Tipo: ",IFNULL(S.tipo, "nulo")," - - - "
+"Cliente: ",IFNULL((S.cliente), "nulo"),"") as VId
+from  tbtotalvendas E LEFT JOIN  tbvenda S 
+on   E.identificador = S.identificador 
+where E.status_pagamento="Pago" 
+and E.dia_pagamento  between   $P{di}  and  $P{df} 
+GROUP BY E.identificador
+UNION 
+select distinct E.identificador,
+GROUP_CONCAT( distinctrow E.cliente) as cliente,
+GROUP_CONCAT( distinctrow E.dia_pagamento)as dia_pagamento,
+GROUP_CONCAT( distinctrow E.venda)as venda,
+GROUP_CONCAT( distinctrow E.forma_pagamento)as forma_pagamento,
+GROUP_CONCAT( distinctrow 
+"\n\nID:", S.idvenda," - - - ",
+"N°: ", S.identificador," - - - ",
+"Nome: ",IFNULL(S.nome,"nulo")," - - - ",
+"Qtde: ",IFNULL(S.quantidade,"nulo")," - - - ",
+"Preço R$ ",IFNULL(S.preco,"nulo")," - - - "
+"Tipo: ",IFNULL(S.tipo, "nulo")," - - - "
+"Cliente: ",IFNULL((S.cliente), "nulo"),"") as VId
+from   tbtotalvendas E RIGHT JOIN  tbvenda S  
+on  E.identificador = S.identificador
+where E.status_pagamento="Pago" 
+and E.dia_pagamento  between   $P{di}  and  $P{df} 
+GROUP BY E.identificador)
+id  order by 1 asc ;]]>
+	</queryString>
+	<field name="identificador" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="identificador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbtotalvendas"/>
+	</field>
+	<field name="cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbtotalvendas"/>
+	</field>
+	<field name="dia_pagamento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="dia_pagamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbtotalvendas"/>
+	</field>
+	<field name="venda" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="venda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbtotalvendas"/>
+	</field>
+	<field name="forma_pagamento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="forma_pagamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbtotalvendas"/>
+	</field>
+	<field name="VId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="VId"/>
+	</field>
+	<variable name="indentificador" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{indentificador}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band height="575" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image scaleImage="FillFrame">
+				<reportElement x="-8" y="0" width="839" height="575" uuid="dad87840-c79a-46cc-a187-46a7abda6a66"/>
+				<imageExpression><![CDATA[$P{Background}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="231" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Top">
+				<reportElement x="-8" y="0" width="840" height="108" uuid="4caaccbb-a2cd-4349-b664-53054aa861f3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{Bandeira}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-8" y="0" width="838" height="108" uuid="fce4e752-517b-4829-bb52-0baa3ec71719"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatorio Caixa_Ganho]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="110" y="150" width="710" height="70" uuid="a649e67b-bfdf-4d3d-ab4a-a14356eb5637"/>
+				<textElement>
+					<font fontName="Dialog" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="120" width="710" height="30" uuid="5f264acb-028c-4332-99e5-05399181d6a0">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Dialog" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="120" width="345" height="100" uuid="2c3097b0-ac56-42d6-99f7-4e5f0cb44508">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement positionType="Float" x="-10" y="230" width="841" height="1" uuid="743d50a4-0769-4b70-a5cf-f983007cd0ab"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="71">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="2" width="50" height="27" uuid="d697d2ed-f71c-485b-9286-68feed40c257"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nº"+$F{identificador}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="50" y="2" width="350" height="27" uuid="93e6d734-6391-4116-affc-e74b1f50883f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cliente: " + $F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement positionType="Float" x="696" y="2" width="125" height="27" uuid="abe88d40-728f-479e-946f-523de97dae95"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dia_pagamento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="51" width="821" height="19" uuid="592ef12f-2d1d-4e60-b546-f9d0211179f5"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Valor Total R\$ "+$F{venda}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="-10" y="70" width="841" height="1" uuid="5e7671b3-4ac9-4340-89e4-941d31209394"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="29" width="820" height="22" uuid="e7e8c5e4-86a4-4ecf-9202-a905ec9bd60e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VId}.replace(",","")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="410" y="2" width="270" height="27" uuid="9c50b459-9744-4602-9aad-ccb524032ddc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{forma_pagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement positionType="Float" x="-2" y="0" width="453" height="30" uuid="30c3bfbb-33db-448e-b5f4-6c7701874283"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="-11" y="0" width="843" height="1" uuid="93684861-4bc8-47ca-8400-1d2520b16e2d"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement positionType="Float" x="358" y="0" width="458" height="30" uuid="c48156f5-4b41-4050-a0e4-581bd1346fb6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina: " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="69">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement positionType="Float" x="4" y="32" width="360" height="36" uuid="2fe061c9-e9c8-4125-a40a-da02ac535eef"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="-5" y="32" width="843" height="1" uuid="02f8e4a3-4459-40c1-a905-61300d949a0b"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement positionType="Float" x="364" y="32" width="458" height="36" uuid="7910843f-2fc0-43b5-aaab-58055029b06f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina: " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="0" width="823" height="32" forecolor="#000000" uuid="a4f7cb1b-7e4a-47d5-a29f-a764c017ed09"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total R\$"+$P{entrada}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

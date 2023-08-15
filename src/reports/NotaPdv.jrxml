@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NotaPDV" language="groovy" pageWidth="226" pageHeight="842" columnWidth="206" leftMargin="10" rightMargin="10" topMargin="0" bottomMargin="0" uuid="d59ce0fa-1189-4783-a358-73b254cf2c45">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NotaPDV" language="javascript" pageWidth="226" pageHeight="842" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="d59ce0fa-1189-4783-a358-73b254cf2c45">
 	<property name="ireport.zoom" value="3.4522712143931042"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="1282"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql_Legnus"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="IT" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -43,39 +45,45 @@
 		<![CDATA[SELECT nome as Nome, preco, quantidade as Quantidade from tbvenda where identificador = $P{IT}]]>
 	</queryString>
 	<field name="Nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbvenda"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="preco" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="preco"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbvenda"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Quantidade" class="java.lang.Integer">
+	<field name="Quantidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Quantidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbvenda"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<title>
 		<band height="207" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="0" y="160" width="206" height="20" uuid="080cab56-2005-45e7-a3e4-9941709a91c3"/>
+				<reportElement positionType="Float" x="0" y="160" width="190" height="20" uuid="080cab56-2005-45e7-a3e4-9941709a91c3"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Dialog" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cliente: " + $P{cliente}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="0" y="180" width="206" height="20" uuid="78494ef2-0f9d-42b2-bf5b-2a53076d67cf"/>
+				<reportElement positionType="Float" x="0" y="180" width="190" height="20" uuid="78494ef2-0f9d-42b2-bf5b-2a53076d67cf"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Dialog" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Endereço: " + $P{endereco}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="0" y="110" width="206" height="20" uuid="50b16fe6-abcc-41b4-a810-3fc5c536c8bb"/>
+				<reportElement positionType="Float" x="0" y="110" width="190" height="20" uuid="50b16fe6-abcc-41b4-a810-3fc5c536c8bb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["\n"+$P{descricao}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="108" y="45" width="98" height="30" uuid="f88944d0-0858-4e3d-b716-5bf510601f66">
+				<reportElement positionType="Float" x="90" y="30" width="100" height="45" uuid="f88944d0-0858-4e3d-b716-5bf510601f66">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -85,14 +93,14 @@
 				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement positionType="Float" x="0" y="10" width="100" height="100" uuid="295ab443-4489-4ff9-b2f0-b83d6231e120">
+				<reportElement positionType="Float" x="0" y="10" width="84" height="100" uuid="295ab443-4489-4ff9-b2f0-b83d6231e120">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="0" y="140" width="206" height="20" uuid="92a18a34-35d6-44da-9aea-825035c4e4cf"/>
+				<reportElement positionType="Float" x="0" y="140" width="190" height="20" uuid="92a18a34-35d6-44da-9aea-825035c4e4cf"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Dialog" size="10"/>
 				</textElement>
@@ -104,35 +112,35 @@
 		<band/>
 	</pageHeader>
 	<columnHeader>
-		<band height="22" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<line>
-				<reportElement positionType="Float" x="-10" y="1" width="226" height="1" uuid="49240487-2b15-4976-9156-a5c587c2912e"/>
+				<reportElement positionType="Float" x="-10" y="3" width="210" height="1" uuid="49240487-2b15-4976-9156-a5c587c2912e"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="-10" y="21" width="226" height="1" uuid="1ae99b89-5727-4aad-8d29-7a85c0fc20e9"/>
+				<reportElement positionType="Float" x="-10" y="23" width="210" height="1" uuid="1ae99b89-5727-4aad-8d29-7a85c0fc20e9"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="1" width="30" height="20" uuid="e71d038d-387e-45ca-816e-8211c60448ab"/>
+				<reportElement positionType="Float" x="0" y="3" width="30" height="18" uuid="e71d038d-387e-45ca-816e-8211c60448ab"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Qtde]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="40" y="2" width="90" height="19" uuid="56cbab8c-a8fc-40d3-bd5b-26d3574bfed0"/>
+				<reportElement positionType="Float" x="40" y="4" width="74" height="17" uuid="56cbab8c-a8fc-40d3-bd5b-26d3574bfed0"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="140" y="2" width="66" height="20" uuid="ceaf1657-d874-4f52-b787-8a14663ae0ab"/>
+				<reportElement positionType="Float" x="140" y="4" width="50" height="18" uuid="ceaf1657-d874-4f52-b787-8a14663ae0ab"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
@@ -147,24 +155,24 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["0"+$F{Quantidade}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Quantidade}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="40" y="0" width="90" height="13" forecolor="#000000" uuid="4a7c512d-24d7-4290-8094-693e3e111ecd"/>
+				<reportElement positionType="Float" x="40" y="0" width="74" height="13" forecolor="#000000" uuid="4a7c512d-24d7-4290-8094-693e3e111ecd"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Nome}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="140" y="0" width="66" height="13" forecolor="#000000" uuid="d0b2cf83-d894-4fa7-bdfb-86bc5780993c"/>
+				<reportElement positionType="Float" x="140" y="0" width="50" height="13" forecolor="#000000" uuid="d0b2cf83-d894-4fa7-bdfb-86bc5780993c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["R\$" + $F{preco}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="-10" y="13" width="226" height="1" uuid="df0172a4-4c3b-4311-9c68-f0ab9696596a"/>
+				<reportElement positionType="Float" x="-10" y="13" width="210" height="1" uuid="df0172a4-4c3b-4311-9c68-f0ab9696596a"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
@@ -172,36 +180,36 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="59">
+		<band height="70">
 			<textField pattern="MM/dd/yyyy hh:mm a">
-				<reportElement positionType="Float" x="-10" y="39" width="226" height="20" uuid="3cf0b42c-5271-4a9f-a3a1-ad08c93c3dd2"/>
+				<reportElement positionType="Float" x="-10" y="39" width="210" height="20" uuid="3cf0b42c-5271-4a9f-a3a1-ad08c93c3dd2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="0" y="0" width="206" height="18" forecolor="#000000" uuid="a51b5a47-4171-40a1-a712-0d86abb7e3dd"/>
+				<reportElement positionType="Float" x="0" y="0" width="190" height="18" forecolor="#000000" uuid="a51b5a47-4171-40a1-a712-0d86abb7e3dd"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Total: R\$" + $P{total}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="0" y="19" width="206" height="19" forecolor="#000000" uuid="214da3da-9de0-4d2c-a7a1-8d3fb83216a3"/>
+				<reportElement positionType="Float" x="0" y="19" width="190" height="19" forecolor="#000000" uuid="214da3da-9de0-4d2c-a7a1-8d3fb83216a3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Forma de Pagamento: " + $P{formaPagamento}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="-10" y="18" width="226" height="1" uuid="4440dbc4-2294-4490-9c6a-f977e7d89fde"/>
+				<reportElement positionType="Float" x="-10" y="18" width="210" height="1" uuid="4440dbc4-2294-4490-9c6a-f977e7d89fde"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="-10" y="38" width="226" height="1" uuid="40e2f442-c532-4a95-89e0-c71149cad101"/>
+				<reportElement positionType="Float" x="-10" y="38" width="210" height="1" uuid="40e2f442-c532-4a95-89e0-c71149cad101"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>

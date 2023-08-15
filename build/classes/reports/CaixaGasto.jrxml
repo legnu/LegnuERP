@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GastoDoDia" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="0" bottomMargin="0" uuid="a5e09ede-8a20-4ed1-9954-30d4db116309">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GastoDoDia" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="a5e09ede-8a20-4ed1-9954-30d4db116309">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -95,20 +95,44 @@
 	<parameter name="Background" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select * from(
-select distinct E.identificador,E.nome,E.data_pagamento,E.valor, 
-GROUP_CONCAT("",S.identificador,"\n") as VId,
-GROUP_CONCAT("",IFNULL(S.nome_produto,"nulo"),"\n")as VNome, 
-GROUP_CONCAT("Qtde: ",IFNULL(S.quantidade_comprada,"nulo"),"\n")as VQtde, 
-GROUP_CONCAT("Preço R$ ",IFNULL(S.valor,"nulo"),"\n")as VPreco, 
-GROUP_CONCAT("Cliente: ",IFNULL((S.fornecedor), "nulo"),"\n") as VCliente
-from tbgastos E JOIN tbcompra S 
+select distinct 
+GROUP_CONCAT(distinctrow E.identificador) as identificador,
+GROUP_CONCAT(distinctrow E.nome) as nome,
+GROUP_CONCAT(distinctrow E.data_pagamento) as data_pagamento,
+GROUP_CONCAT(distinctrow E.valor) as valor, 
+GROUP_CONCAT(distinctrow
+"\n\nID:", S.idcompra," - - - ",
+"N° ",S.identificador," - - - ",
+"Nome: ",IFNULL(S.nome_produto,"nulo")," - - - ",
+"Qtde: ",IFNULL(S.quantidade_comprada,"nulo")," - - - ",
+"Preço R$ ",IFNULL(S.valor,"nulo")," - - - ",
+"Cliente: ",IFNULL((S.fornecedor), "nulo")) as VId
+from tbgastos E left JOIN tbcompra S 
 on  E.identificador = S.identificador
 where E.status_pagamento="Pago" 
-and E.data_pagamento  between $P{di} and $P{df} 
+and E.data_pagamento  between    $P{di}  and   $P{df} 
+GROUP BY S.identificador
+UNION
+select distinct 
+GROUP_CONCAT(distinctrow E.identificador) as identificador,
+GROUP_CONCAT(distinctrow E.nome) as nome,
+GROUP_CONCAT(distinctrow E.data_pagamento) as data_pagamento,
+GROUP_CONCAT(distinctrow E.valor) as valor, 
+GROUP_CONCAT(distinctrow
+"\n\nID:", S.idcompra," - - - ",
+"N° ",S.identificador," - - - ",
+"Nome: ",IFNULL(S.nome_produto,"nulo")," - - - ",
+"Qtde: ",IFNULL(S.quantidade_comprada,"nulo")," - - - ",
+"Preço R$ ",IFNULL(S.valor,"nulo")," - - - ",
+"Cliente: ",IFNULL((S.fornecedor), "nulo")) as VId
+from tbgastos E right join tbcompra S 
+on  E.identificador = S.identificador
+where E.status_pagamento="Pago" 
+and E.data_pagamento  between    $P{di}  and   $P{df} 
 GROUP BY S.identificador)
-id  order by 1 asc]]>
+id  order by 1 asc;]]>
 	</queryString>
-	<field name="identificador" class="java.lang.Integer">
+	<field name="identificador" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="identificador"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tbgastos"/>
 	</field>
@@ -116,7 +140,7 @@ id  order by 1 asc]]>
 		<property name="com.jaspersoft.studio.field.label" value="nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tbgastos"/>
 	</field>
-	<field name="data_pagamento" class="java.sql.Date">
+	<field name="data_pagamento" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="data_pagamento"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tbgastos"/>
 	</field>
@@ -127,33 +151,21 @@ id  order by 1 asc]]>
 	<field name="VId" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="VId"/>
 	</field>
-	<field name="VNome" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="VNome"/>
-	</field>
-	<field name="VQtde" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="VQtde"/>
-	</field>
-	<field name="VPreco" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="VPreco"/>
-	</field>
-	<field name="VCliente" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="VCliente"/>
-	</field>
 	<variable name="indentificador" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$V{indentificador}]]></variableExpression>
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
 	</variable>
 	<background>
-		<band height="595" splitType="Stretch">
+		<band height="575" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image scaleImage="FillFrame">
-				<reportElement x="-8" y="0" width="839" height="595" uuid="dad87840-c79a-46cc-a187-46a7abda6a66"/>
+				<reportElement x="-8" y="0" width="839" height="575" uuid="dad87840-c79a-46cc-a187-46a7abda6a66"/>
 				<imageExpression><![CDATA[$P{Background}]]></imageExpression>
 			</image>
 		</band>
 	</background>
 	<title>
-		<band height="230" splitType="Stretch">
+		<band height="231" splitType="Stretch">
 			<image scaleImage="FillFrame" hAlign="Center" vAlign="Top">
 				<reportElement x="-8" y="0" width="840" height="108" uuid="4caaccbb-a2cd-4349-b664-53054aa861f3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -191,6 +203,12 @@ id  order by 1 asc]]>
 				</reportElement>
 				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
 			</image>
+			<line>
+				<reportElement positionType="Float" x="-10" y="230" width="841" height="1" uuid="34d15283-81e9-4a50-9510-0076b4a9fe0c"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
 		</band>
 	</title>
 	<detail>
@@ -203,7 +221,7 @@ id  order by 1 asc]]>
 				<textFieldExpression><![CDATA["Nº"+$F{identificador}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="50" y="2" width="646" height="27" uuid="93e6d734-6391-4116-affc-e74b1f50883f"/>
+				<reportElement positionType="Float" x="50" y="2" width="640" height="27" uuid="93e6d734-6391-4116-affc-e74b1f50883f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -211,7 +229,7 @@ id  order by 1 asc]]>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="696" y="2" width="125" height="27" uuid="abe88d40-728f-479e-946f-523de97dae95"/>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{data_pagamento}]]></textFieldExpression>
@@ -230,39 +248,11 @@ id  order by 1 asc]]>
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="0" y="29" width="50" height="22" uuid="e7e8c5e4-86a4-4ecf-9202-a905ec9bd60e"/>
+				<reportElement positionType="Float" x="0" y="29" width="816" height="22" uuid="e7e8c5e4-86a4-4ecf-9202-a905ec9bd60e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{VId}.replace(",","")]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="50" y="29" width="220" height="22" uuid="38527dfc-b485-41e3-b2eb-51c1fd9c4cc5"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{VNome}.replace(",","")]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="280" y="29" width="100" height="22" uuid="382f1c64-5293-4d0f-ac32-4b9e22bacff3"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{VQtde}.replace(",","")]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="390" y="29" width="140" height="22" uuid="f09a62ed-1f88-4eb0-9200-1b8da5f3ff62"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{VPreco}.replace(",","")]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="540" y="29" width="281" height="22" uuid="13e50e03-f9d1-4c3d-bea6-d0dc7f283af4"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{VCliente}.replace(",","")]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

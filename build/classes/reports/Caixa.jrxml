@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GastoDoDia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="0" bottomMargin="0" uuid="a5e09ede-8a20-4ed1-9954-30d4db116309">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GastoDoDia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="a5e09ede-8a20-4ed1-9954-30d4db116309">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -104,10 +104,10 @@ where S.status_pagamento="Pago" and data_pagamento between $P{di} and $P{df}) id
 	<field name="valor" class="java.lang.String"/>
 	<field name="tipoS" class="java.lang.String"/>
 	<background>
-		<band height="842" splitType="Stretch">
+		<band height="822" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image scaleImage="FillFrame">
-				<reportElement x="-11" y="0" width="597" height="841" uuid="dad87840-c79a-46cc-a187-46a7abda6a66"/>
+				<reportElement x="-11" y="0" width="597" height="822" uuid="dad87840-c79a-46cc-a187-46a7abda6a66"/>
 				<imageExpression><![CDATA[$P{Background}]]></imageExpression>
 			</image>
 		</band>
