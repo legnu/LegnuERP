@@ -207,7 +207,7 @@ public class SubClienteMaquina extends javax.swing.JFrame {
         txtAno.setText(tbAuxilioSub.getModel().getValueAt(setar, 4).toString());
         txtCor.setText(tbAuxilioSub.getModel().getValueAt(setar, 5).toString());
         txtTamanho.setText(tbAuxilioSub.getModel().getValueAt(setar, 6).toString());      
-        txtOBS.setText(tbAuxilioSub.getModel().getValueAt(setar, 7).toString());
+        txtOBS.setText(tbAuxilioSub.getModel().getValueAt(setar, 8).toString());
         
 
         //A Linha Abaixo desabilita o botão adicionar

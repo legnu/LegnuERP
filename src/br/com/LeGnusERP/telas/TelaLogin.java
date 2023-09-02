@@ -19,6 +19,8 @@ import net.proteanit.sql.DbUtils;
  * @author Leandro Clemente
  */
 public class TelaLogin extends javax.swing.JFrame {
+    
+    
 
     Connection conexao = null;
     PreparedStatement pst = null;

@@ -208,7 +208,7 @@ public class SubClienteAnimal extends javax.swing.JFrame {
         txtCor.setText(tbAuxilioSub.getModel().getValueAt(setar, 4).toString());
         txtTamanho.setText(tbAuxilioSub.getModel().getValueAt(setar, 5).toString());
         cbSexo.setSelectedItem(tbAuxilioSub.getModel().getValueAt(setar, 6).toString());      
-        txtOBS.setText(tbAuxilioSub.getModel().getValueAt(setar, 7).toString());
+        txtOBS.setText(tbAuxilioSub.getModel().getValueAt(setar, 8).toString());
         
 
         //A Linha Abaixo desabilita o botão adicionar

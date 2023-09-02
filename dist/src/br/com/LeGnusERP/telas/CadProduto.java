@@ -109,7 +109,7 @@ public class CadProduto extends javax.swing.JFrame {
     }
 
     private void pesquisar_cliente() {
-        String sql = "select idproduto as ID, produto as Produto, codigo as Codigo, valor_compra as Valor_de_Compra, valor_venda as Valor_de_Venda, fornecedor as Fornecedor, obs as Observações, estoque as Estoque,foto as Foto,tipoCodigo as Tipo_Codigo from tbprodutos where produto like ?";
+        String sql = "select idproduto as ID,codigo as Codigo, produto as Produto, valor_compra as Valor_de_Compra, valor_venda as Valor_de_Venda, fornecedor as Fornecedor, obs as Observações,estoque as Estoque,foto as Foto,tipoCodigo as Tipo_Codigo from tbprodutos where produto like ?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtPesquisa.getText() + "%");
@@ -171,6 +171,7 @@ public class CadProduto extends javax.swing.JFrame {
 
             if (txtCodigo.getText().isEmpty() == true) {
                 pst.setString(2, null);
+                pst.setString(13, "ID Comum");
             } else {
                 if(cbTipoCodigo.getSelectedItem().toString().equals("ID Comum")){
                     pst.setString(2, txtCodigo.getText());
@@ -182,7 +183,7 @@ public class CadProduto extends javax.swing.JFrame {
                     }else{
                         JOptionPane.showMessageDialog(null, "Para EAN-13, o codigo deve ter 7 digitos. \n(O produto será salvo como Código Comum.)");
                         pst.setString(2, txtCodigo.getText());
-                        pst.setString(13, "Comum");
+                        pst.setString(13, "ID Comum");
                     }
                 }
             }
@@ -250,6 +251,7 @@ public class CadProduto extends javax.swing.JFrame {
 
             if (txtCodigo.getText().isEmpty() == true) {
                 pst.setString(2, null);
+                pst.setString(13, "ID Comum");
             } else {
                 if(cbTipoCodigo.getSelectedItem().toString().equals("ID Comum")){
                     pst.setString(2, txtCodigo.getText());
@@ -261,7 +263,7 @@ public class CadProduto extends javax.swing.JFrame {
                     }else{
                         JOptionPane.showMessageDialog(null, "Para EAN-13, o código deve ter 7 digitos. \n(O produto será salvo como Código Comum.)");
                         pst.setString(2, txtCodigo.getText());
-                        pst.setString(13, "Comum");
+                        pst.setString(13, "ID Comum");
                     }
                 }
             }

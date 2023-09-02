@@ -118,7 +118,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Vers&#xe3;o 23.07"/>
+            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 23.08"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -142,7 +142,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="LeGnu&apos;s INFORTEC"/>
+            <Property name="text" type="java.lang.String" value="LeGNU Infortec"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">

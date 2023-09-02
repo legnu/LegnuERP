@@ -1,0 +1,15 @@
+/**************************************CRIAR_BANCO_DE_DADOS********************************************/
+create database dbLocal;
+use dbLocal;
+/******************************************CRIAR_TABELA************************************************/
+create table tbUri(
+id int Primary key,
+uri text);
+/**************************************INSERIR_VALOR_PADRÃO********************************************/
+insert into tbUri(id,uri)values(1,"jdbc:mysql://localhost:3306/dbmeusservicos?characterEncoding=utf-8");
+/************************************FERRAMENTAS_DE_DESCRIÇÃO******************************************/
+describe tbUri;				##Descreve Colunas existentes da tabela.
+select * from tbUri;		##Descreve o conteudo de cada linha da tabela.
+/************************************FERRAMENTAS_DE_ALTERÇÃO*******************************************/	
+update tbUri set uri = "jdbc:mysql://localhost:3306/dbmeusservicos?characterEncoding=utf-8" where id=1;
+/******************************************************************************************************/

@@ -45,10 +45,10 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
-		<band height="595" splitType="Stretch">
+		<band height="575" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image scaleImage="FillFrame">
-				<reportElement x="-11" y="0" width="842" height="595" uuid="2d2e320c-1e66-4e0b-8786-bded8cf4bb7b"/>
+				<reportElement x="-11" y="0" width="842" height="575" uuid="2d2e320c-1e66-4e0b-8786-bded8cf4bb7b"/>
 				<imageExpression><![CDATA[$P{Background}]]></imageExpression>
 			</image>
 		</band>

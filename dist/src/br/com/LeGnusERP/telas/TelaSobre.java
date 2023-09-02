@@ -58,7 +58,7 @@ public class TelaSobre extends javax.swing.JFrame {
         jLabel3.setText("Sob a licença GPL");
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel6.setText("Versão 23.07");
+        jLabel6.setText("Versão: 23.08");
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setText("Desenvolvido por Legnu Team`s");
@@ -67,7 +67,7 @@ public class TelaSobre extends javax.swing.JFrame {
         jLabel1.setText("Sistema de Gestão Comercial");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel7.setText("LeGnu's INFORTEC");
+        jLabel7.setText("LeGNU Infortec");
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/LeGnusERP/icones/LogoLegnuPadrão_300x200.png"))); // NOI18N

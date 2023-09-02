@@ -4,17 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/TelaCompra.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/telaGastos.java</file>
             <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/PontoDeVendas.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/CadFuncionarios.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/TelaServico.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/TelaConfiguracao.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/TelaClientes.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/CadProduto.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/dal/ModuloConexao.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/telaCaixa.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/TelaPrincipal.java</file>
-            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/CadOS.java</file>
+            <file>file:/D:/HD/Projetos/Java/LeGnus_ERP/src/br/com/LeGnusERP/telas/TelaConexao.java</file>
         </group>
     </open-files>
 </project-private>

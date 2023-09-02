@@ -371,6 +371,35 @@ public class PontoDeVendas extends javax.swing.JFrame {
             limpar();
         }
     }
+    
+     public void tirarComanda() {
+        try {
+            if (cbComanda.getSelectedItem().toString().equals("Caixa Principal") == false) {
+                for (int i = 0; i < tbItem.getRowCount(); i++) {
+                    String id = tbItem.getModel().getValueAt(i, 0).toString();
+                    String sqo = "update tbvenda set comanda_nota='Caixa Principal' where idvenda=?";
+                    pst = conexao.prepareStatement(sqo);
+                    pst.setString(1, id);
+                    pst.executeUpdate();
+                }
+                String sqy = "delete from tbComanda where nomeComanda=?";
+                pst = conexao.prepareStatement(sqy);
+                pst.setString(1, cbComanda.getSelectedItem().toString());
+                pst.executeUpdate();
+                InstanciarComboboxComanda();
+                cbComanda.removeItem(cbComanda.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, "Comanda removida com sucesso.");
+                
+                instanciarTabelaVenda();
+            } else {
+                JOptionPane.showMessageDialog(null, "Caixa Principal não pode ser removido.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            limpar();
+        }
+
+    }
 
     public void AdicionarDesconto() {
 
@@ -627,7 +656,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
 
                     }
                 }
-
+                
             } else {
                 limpar();
             }
@@ -1085,33 +1114,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
         }
     }
 
-    public void tirarComanda() {
-        try {
-            if (cbComanda.getSelectedItem().toString().equals("Caixa Principal") == false) {
-                for (int i = 0; i < tbItem.getRowCount(); i++) {
-                    String id = tbItem.getModel().getValueAt(i, 0).toString();
-                    String sqo = "update tbvenda set comanda_nota='Caixa Principal' where idvenda=?";
-                    pst = conexao.prepareStatement(sqo);
-                    pst.setString(1, id);
-                    pst.executeUpdate();
-                }
-                String sqy = "delete from tbComanda where nomeComanda=?";
-                pst = conexao.prepareStatement(sqy);
-                pst.setString(1, cbComanda.getSelectedItem().toString());
-                pst.executeUpdate();
-                cbComanda.removeItem(cbComanda.getSelectedItem().toString());
-                JOptionPane.showMessageDialog(null, "Comanda removida com sucesso.");
-                InstanciarComboboxComanda();
-                instanciarTabelaVenda();
-            } else {
-                JOptionPane.showMessageDialog(null, "Caixa Principal não pode ser removido.");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            limpar();
-        }
-
-    }
+   
 
     public void adicionarComissao() {
         try {
@@ -1986,11 +1989,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                         String proseguir;
                         String vezes;
                         if (rbDinheiro.isSelected() == true) {
-                            if (valorInteiro > 0) {
+                            if (valorInteiro >= 0.01) {
 
                                 valorTirado = 0;
                                 while (valorTirado <= 0) {
-                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto a vista? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto a vista? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                     if ((teste != null) == true) {
                                         valorTirado = Float.parseFloat(teste);
                                     }
@@ -2007,11 +2010,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                         }
 
                         if (rbPix.isSelected() == true) {
-                            if (valorInteiro > 0) {
+                            if (valorInteiro >= 0.01) {
 
                                 valorTirado = 0;
                                 while (valorTirado <= 0) {
-                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no PIX? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no PIX? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                     if ((teste != null) == true) {
                                         valorTirado = Float.parseFloat(teste);
                                     }
@@ -2030,11 +2033,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                         }
 
                         if (rbDebito.isSelected() == true) {
-                            if (valorInteiro > 0) {
+                            if (valorInteiro >= 0.01) {
 
                                 valorTirado = 0;
                                 while (valorTirado <= 0) {
-                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Debito? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Debito? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                     if ((teste != null) == true) {
                                         valorTirado = Float.parseFloat(teste);
                                     }
@@ -2054,11 +2057,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                         }
 
                         if (rbCrediario.isSelected() == true) {
-                            if (valorInteiro > 0) {
+                            if (valorInteiro >= 0.01) {
 
                                 valorTirado = 0;
                                 while (valorTirado <= 0) {
-                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Crediario? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Crediario? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                     if ((teste != null) == true) {
                                         valorTirado = Float.parseFloat(teste);
                                     }
@@ -2078,11 +2081,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                         }
 
                         if (rbCredito.isSelected() == true) {
-                            if (valorInteiro > 0) {
+                            if (valorInteiro >= 0.01) {
 
                                 valorTirado = 0;
                                 while (valorTirado <= 0) {
-                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Credito? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Credito? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                     if ((teste != null) == true) {
                                         valorTirado = Float.parseFloat(teste);
                                     }
@@ -2102,11 +2105,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                         }
 
                         if (rbBoleto.isSelected() == true) {
-                            if (valorInteiro > 0) {
+                            if (valorInteiro >= 0.01) {
 
                                 valorTirado = 0;
                                 while (valorTirado <= 0) {
-                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Boleto? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Boleto? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                     if ((teste != null) == true) {
                                         valorTirado = Float.parseFloat(teste);
                                     }
@@ -2125,17 +2128,17 @@ public class PontoDeVendas extends javax.swing.JFrame {
                             }
                         }
 
-                        while (valorInteiro > 0) {
+                        while (valorInteiro >= 0.01) {
 
-                            proseguir = JOptionPane.showInputDialog("O Valor da venda não foi concluido, como deseja pagar o valor restante?\n\nAlternativas(escolha um dos numeros)\n1)Dinheiro\n2)PIX\n3)Debito\n4)Credito\n5)" + rbCrediario.getText() + "\n6)" + rbBoleto.getText() + "\n\nValor Restante: R$ " + valorInteiro);
+                            proseguir = JOptionPane.showInputDialog("O Valor da venda não foi concluido, como deseja pagar o valor restante?\n\nAlternativas(escolha um dos numeros)\n1)Dinheiro\n2)PIX\n3)Debito\n4)Credito\n5)" + rbCrediario.getText() + "\n6)" + rbBoleto.getText() + "\n\nValor Restante: R$ " + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."));
 
                             if ((proseguir != null) == true) {
                                 if (proseguir.equals("1") == true) {
-                                    if (valorInteiro > 0) {
+                                    if (valorInteiro >= 0.01) {
 
                                         valorTirado = 0;
                                         while (valorTirado <= 0) {
-                                            String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto a vista? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                            String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto a vista? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                             if ((teste != null) == true) {
                                                 valorTirado = Float.parseFloat(teste);
                                             }
@@ -2150,11 +2153,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                                         JOptionPane.showMessageDialog(null, "Não foi possivel adicionar a forma Dinheiro, pois o valor da venda ja foi batido");
                                     }
                                 } else if (proseguir.equals("2") == true) {
-                                    if (valorInteiro > 0) {
+                                    if (valorInteiro >= 0.01) {
 
                                         valorTirado = 0;
                                         while (valorTirado <= 0) {
-                                            String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no PIX? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                            String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no PIX? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                             if ((teste != null) == true) {
                                                 valorTirado = Float.parseFloat(teste);
                                             }
@@ -2173,11 +2176,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                                     }
                                 } else if (proseguir.equals("3") == true) {
                                     MontarJOPMaquininha();
-                                    if (valorInteiro > 0) {
+                                    if (valorInteiro >= 0.01) {
 
                                         valorTirado = 0;
                                         while (valorTirado <= 0) {
-                                            String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no debito? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                            String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no debito? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                             if ((teste != null) == true) {
                                                 valorTirado = Float.parseFloat(teste);
                                             }
@@ -2199,11 +2202,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                                     MontarJOPMaquininha();
                                     vezes = JOptionPane.showInputDialog("Quantas vezes deseja dividir?");
                                     if (vezes.equals("1") == true || vezes.equals("2") == true || vezes.equals("3") == true || vezes.equals("4") == true || vezes.equals("5") == true || vezes.equals("6") == true || vezes.equals("7") == true || vezes.equals("8") == true || vezes.equals("9") == true || vezes.equals("10") == true || vezes.equals("11") == true || vezes.equals("12") == true) {
-                                        if (valorInteiro > 0) {
+                                        if (valorInteiro >= 0.01) {
 
                                             valorTirado = 0;
                                             while (valorTirado <= 0) {
-                                                String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Credito? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                                String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Credito? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                                 if ((teste != null) == true) {
                                                     valorTirado = Float.parseFloat(teste);
                                                 }
@@ -2227,11 +2230,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                                     if (rbCrediario.getText().equals("Crediario") == true) {
                                         vezes = JOptionPane.showInputDialog("Quantas vezes deseja dividir?");
                                         if (vezes.equals("1") == true || vezes.equals("2") == true || vezes.equals("3") == true || vezes.equals("4") == true || vezes.equals("5") == true || vezes.equals("6") == true || vezes.equals("7") == true || vezes.equals("8") == true || vezes.equals("9") == true || vezes.equals("10") == true || vezes.equals("11") == true || vezes.equals("12") == true) {
-                                            if (valorInteiro > 0) {
+                                            if (valorInteiro >= 0.01) {
 
                                                 valorTirado = 0;
                                                 while (valorTirado <= 0) {
-                                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Crediario? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Crediario? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                                     if ((teste != null) == true) {
                                                         valorTirado = Float.parseFloat(teste);
                                                     }
@@ -2256,11 +2259,11 @@ public class PontoDeVendas extends javax.swing.JFrame {
                                     if (rbBoleto.getText().equals("Boleto") == true) {
                                         vezes = JOptionPane.showInputDialog("Quantas vezes deseja dividir?");
                                         if (vezes.equals("1") == true || vezes.equals("2") == true || vezes.equals("3") == true || vezes.equals("4") == true || vezes.equals("5") == true || vezes.equals("6") == true || vezes.equals("7") == true || vezes.equals("8") == true || vezes.equals("9") == true || vezes.equals("10") == true || vezes.equals("11") == true || vezes.equals("12") == true) {
-                                            if (valorInteiro > 0) {
+                                            if (valorInteiro >= 0.01) {
 
                                                 valorTirado = 0;
                                                 while (valorTirado <= 0) {
-                                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Boleto? \nValor restante: R$" + valorInteiro, "Atenção", JOptionPane.YES_OPTION);
+                                                    String teste = JOptionPane.showInputDialog(null, "Deseja passar quanto no Boleto? \nValor restante: R$" + new DecimalFormat("#,##0.00").format(valorInteiro).replace(",", "."), "Atenção", JOptionPane.YES_OPTION);
                                                     if ((teste != null) == true) {
                                                         valorTirado = Float.parseFloat(teste);
                                                     }
@@ -2567,7 +2570,8 @@ public class PontoDeVendas extends javax.swing.JFrame {
         idCliente.setText("1");
         txtEstoque.setText(null);
         txtTipo.setText(null);
-        txtQuantidade.setText(null);
+        txtQuantidade.setText("1");
+        txtCodigo.setText("");
         btnAdicionar.setEnabled(false);
         btnMostrarFoto.setEnabled(false);
         valorTotal = "0";
@@ -3458,7 +3462,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
         OS_Produtos.add(rbProduto);
         rbProduto.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         rbProduto.setSelected(true);
-        rbProduto.setText("Produtos");
+        rbProduto.setText("Prod.");
         rbProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbProdutoActionPerformed(evt);
@@ -3468,7 +3472,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
         rbServico.setBackground(java.awt.SystemColor.control);
         OS_Produtos.add(rbServico);
         rbServico.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        rbServico.setText("Serviço");
+        rbServico.setText("Serv.");
         rbServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbServicoActionPerformed(evt);
@@ -3499,7 +3503,7 @@ public class PontoDeVendas extends javax.swing.JFrame {
 
         OS_Produtos.add(rbCodigo);
         rbCodigo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        rbCodigo.setText("Codigo de Barras");
+        rbCodigo.setText("Cod.");
         rbCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbCodigoActionPerformed(evt);
@@ -3529,28 +3533,29 @@ public class PontoDeVendas extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(pnTbPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnTbPrincipalLayout.createSequentialGroup()
-                        .addComponent(btnOS, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCliente)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTbPrincipalLayout.createSequentialGroup()
                         .addGroup(pnTbPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnTbPrincipalLayout.createSequentialGroup()
                                 .addComponent(rbProduto)
-                                .addGap(16, 16, 16)
-                                .addComponent(rbServico, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16)
-                                .addComponent(rbOrdemDeServico)
-                                .addGap(16, 16, 16)
-                                .addComponent(rbCodigo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
-                            .addComponent(scPdv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(rbServico)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbOrdemDeServico)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(scPdv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnTbPrincipalLayout.createSequentialGroup()
                                 .addComponent(lblPesquisa)
                                 .addGap(16, 16, 16)
-                                .addComponent(txtPesquisa)))
-                        .addGap(16, 16, 16))))
+                                .addComponent(txtPesquisa))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnTbPrincipalLayout.createSequentialGroup()
+                                .addComponent(rbCodigo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCodigo)))
+                        .addGap(16, 16, 16))
+                    .addGroup(pnTbPrincipalLayout.createSequentialGroup()
+                        .addComponent(btnOS, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCliente)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnTbPrincipalLayout.setVerticalGroup(
             pnTbPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3559,20 +3564,22 @@ public class PontoDeVendas extends javax.swing.JFrame {
                 .addGroup(pnTbPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPesquisa))
-                .addGap(16, 16, 16)
+                .addGap(17, 17, 17)
                 .addGroup(pnTbPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbProduto)
                     .addComponent(rbServico)
-                    .addComponent(rbOrdemDeServico)
+                    .addComponent(rbOrdemDeServico))
+                .addGap(10, 10, 10)
+                .addGroup(pnTbPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbCodigo)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addGroup(pnTbPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnOS)
-                    .addComponent(btnCliente))
-                .addGap(16, 16, 16)
+                    .addComponent(btnCliente)
+                    .addComponent(btnOS))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scPdv, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
+                .addGap(16, 16, 16))
         );
 
         jPanel1.setBackground(java.awt.SystemColor.control);
